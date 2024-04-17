@@ -11,6 +11,7 @@ library(gridExtra)
 library(lme4)
 library(lmerTest)
 library(robustlmm)
+library(praatpicture)
 
 
 #=============================== DATA ===============================
@@ -140,3 +141,14 @@ summary(rm_model_dur_og)
 
 rm_model_dur_en <- lmer(z_scores_dur ~ country * gender + (1 | id), data = en_lm_data)
 summary(rm_model_dur_en)
+
+
+#=============================== RMELM ===============================
+praatpicture(
+  sound = '/Users/inigoparra/Desktop/sociophonetics/es_peninsular_female/e/bre.wav',
+  frames = c('sound', 'spectrogram'),
+  proportion = c(50, 50),
+  pitch_plotOnSpec = TRUE,
+  pitch_color = 'blue',
+  draw_rectangle = c('spectrogram', 0.0255, 4800, 0.055, 100, border='blue', lwd=2)
+  )
