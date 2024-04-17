@@ -119,6 +119,7 @@ linear_model_data$z_scores_v <- (linear_model_data$v_percentage-mean(linear_mode
 linear_model_data$z_scores_dur <- (linear_model_data$duration-mean(linear_model_data$duration)/sd(linear_model_data$duration))
 summary(linear_model_data)
 
+
 # Some descriptive stats
 sd(linear_model_data$duration)
 sd(linear_model_data$voiced)
