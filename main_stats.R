@@ -12,6 +12,7 @@ library(lme4)
 library(lmerTest)
 library(robustlmm)
 library(praatpicture)
+library(DHARMa)
 
 
 #=============================== DATA ===============================
@@ -111,7 +112,7 @@ text(
 # The samples, when divided by condition, are concordant. That is, they are significantly
 # similar when analysing their principal components.
 
-#=============================== RMELM ===============================
+#=============================== MODELS ===============================
 linear_model_data <- read.csv('/Users/inigoparra/Desktop/linear_model_data.csv')
 linear_model_data
 
@@ -119,7 +120,6 @@ linear_model_data
 linear_model_data$z_scores_v <- (linear_model_data$v_percentage-mean(linear_model_data$v_percentage)/sd(linear_model_data$v_percentage))
 linear_model_data$z_scores_dur <- (linear_model_data$duration-mean(linear_model_data$duration)/sd(linear_model_data$duration))
 summary(linear_model_data)
-
 
 # Some descriptive stats
 sd(linear_model_data$duration)
@@ -130,20 +130,40 @@ sd(linear_model_data$v_percentage)
 og_lm_data <- linear_model_data %>% filter(linear_model_data$condition == 'og')
 en_lm_data <- linear_model_data %>% filter(linear_model_data$condition == 'en')
 
-rm_model_v_og <- lmer(z_scores_v ~ country + gender + (1 | id), data = og_lm_data)
-summary(rm_model_v_og)
 
-rm_model_v_en <- lmer(z_scores_v ~ country + gender + (1 | id), data = en_lm_data)
-summary(rm_model_v_en)
+#<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><
+lme_model_v_og <- lmer(z_scores_v ~ country + gender + (1 | id), data = og_lm_data)
+summary(lme_model_v_og)
 
-rm_model_dur_og <- lmer(z_scores_dur ~ country * gender + (1 | id), data = og_lm_data)
-summary(rm_model_dur_og)
+lme_model_v_en <- lmer(z_scores_v ~ country + gender + (1 | id), data = en_lm_data)
+summary(lme_model_v_en)
 
-rm_model_dur_en <- lmer(z_scores_dur ~ country * gender + (1 | id), data = en_lm_data)
-summary(rm_model_dur_en)
+lme_model_dur_og <- lmer(z_scores_dur ~ country + gender + (1 | id), data = og_lm_data)
+summary(lme_model_dur_og)
+
+lme_model_dur_en <- lmer(z_scores_dur ~ country + gender + (1 | id), data = en_lm_data)
+summary(lme_model_dur_en)
+
+#Diagnostics
+resout <- simulateResiduals(lme_model_dur_en)
+plot(resout)
 
 
-#=============================== RMELM ===============================
+#<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><
+rlme_model_v_og <- rlmer(z_scores_v ~ country + gender + (1 | id), data = og_lm_data)
+summary(rlme_model_v_og)
+
+rlme_model_v_en <- rlmer(z_scores_v ~ country + gender + (1 | id), data = en_lm_data)
+summary(rlme_model_v_en)
+
+rlme_model_dur_og <- rlmer(z_scores_dur ~ country + gender + (1 | id), data = og_lm_data)
+summary(rlme_model_dur_og)
+
+rlme_model_dur_en <- rlmer(z_scores_dur ~ country + gender + (1 | id), data = en_lm_data)
+summary(rlme_model_dur_en)
+
+
+#=============================== PRAATPIC ===============================
 praatpicture(
   sound = '/Users/inigoparra/Desktop/sociophonetics/es_peninsular_female/e/bre.wav',
   frames = c('sound', 'spectrogram'),
@@ -152,3 +172,9 @@ praatpicture(
   pitch_color = 'blue',
   draw_rectangle = c('spectrogram', 0.0255, 4800, 0.055, 100, border='blue', lwd=2)
   )
+
+praatpicture(
+  sound = '/Users/inigoparra/Desktop/sociophonetics/es_peninsular_female/e_enhanced/bre.wav',
+  frames = c('sound', 'spectrogram'),
+  proportion = c(50, 50)
+)
