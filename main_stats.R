@@ -14,6 +14,7 @@ library(robustlmm)
 library(praatpicture)
 library(DHARMa)
 library(MASS)
+library(faux)
 
 
 #=============================== DATA ===============================
@@ -68,50 +69,167 @@ i_file_og_peruvian_M <- read.csv('/Users/inigoparra/Desktop/sociophonetics/csv_f
 i_file_og_peruvian_M <- drop_na(i_file_og_peruvian_M)
 
 
-#=============================== PCA ===============================
+#=============================== PCA DATA ===============================
+data_transpose_e_pen_f_og <- transpose(e_file_og_peninsular_F)
+colnames(data_transpose_e_pen_f_og) <- rownames(e_file_og_peninsular_F)
+rownames(data_transpose_e_pen_f_og) <- colnames(e_file_og_peninsular_F)
+
+data_transpose_e_pen_f_en <- transpose(e_file_en_peninsular_F)
+colnames(data_transpose_e_pen_f_en) <- rownames(e_file_en_peninsular_F)
+rownames(data_transpose_e_pen_f_en) <- colnames(e_file_en_peninsular_F)
+
+data_transpose_e_pen_m_og <- transpose(e_file_og_peninsular_M)
+colnames(data_transpose_e_pen_m_og) <- rownames(e_file_og_peninsular_M)
+rownames(data_transpose_e_pen_m_og) <- colnames(e_file_og_peninsular_M)
+
+data_transpose_e_pen_m_en <- transpose(e_file_en_peninsular_M)
+colnames(data_transpose_e_pen_m_en) <- rownames(e_file_en_peninsular_M)
+rownames(data_transpose_e_pen_m_en) <- colnames(e_file_en_peninsular_M)
+
+#<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><
+data_transpose_e_per_f_og <- transpose(e_file_og_peruvian_F)
+colnames(data_transpose_e_per_f_og) <- rownames(e_file_og_peruvian_F)
+rownames(data_transpose_e_per_f_og) <- colnames(e_file_og_peruvian_F)
+
+data_transpose_e_per_f_en <- transpose(e_file_en_peruvian_F)
+colnames(data_transpose_e_per_f_en) <- rownames(e_file_en_peruvian_F)
+rownames(data_transpose_e_per_f_en) <- colnames(e_file_en_peruvian_F)
+
+data_transpose_e_per_m_og <- transpose(e_file_og_peruvian_M)
+colnames(data_transpose_e_per_m_og) <- rownames(e_file_og_peruvian_M)
+rownames(data_transpose_e_per_m_og) <- colnames(e_file_og_peruvian_M)
+
+data_transpose_e_per_m_en <- transpose(e_file_en_peruvian_M)
+colnames(data_transpose_e_per_m_en) <- rownames(e_file_en_peruvian_M)
+rownames(data_transpose_e_per_m_en) <- colnames(e_file_en_peruvian_M)
+
+
+#=============================== PCA ANALYSIS FOR (E) ===============================
+pca_e_pen_f_og <- prcomp(data_transpose_e_pen_f_og, scale = TRUE)
+pca_e_pen_f_en <- prcomp(data_transpose_e_pen_f_en, scale = TRUE)
+
+pca_e_pen_m_og <- prcomp(data_transpose_e_pen_m_og, scale = TRUE)
+pca_e_pen_m_en <- prcomp(data_transpose_e_pen_m_en, scale = TRUE)
+
+pca_e_per_f_og <- prcomp(data_transpose_e_per_f_og, scale = TRUE)
+pca_e_per_f_en <- prcomp(data_transpose_e_per_f_en, scale = TRUE)
+
+pca_e_per_m_og <- prcomp(data_transpose_e_per_m_og, scale = TRUE)
+pca_e_per_m_en <- prcomp(data_transpose_e_per_m_en, scale = TRUE)
+
+
+#<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><
 colors = c("#00AFBB", "#E7B800", "#FC4E07")
 
-data_transpose_1 <- transpose(e_file_og_peninsular_F)
-data_transpose_2 <- transpose(e_file_en_peninsular_F)
+plot_pca_pca_e_pen_f_og <- fviz_pca_ind(pca_e_pen_f_og, 
+                                        col.ind = "cos2", 
+                                        gradient.cols = colors, 
+                                        repel = TRUE,
+                                        title = 'Individuals PCA - OG Tokens')
 
-colnames(data_transpose_1) <- rownames(e_file_og_peninsular_F)
-rownames(data_transpose_1) <- colnames(e_file_og_peninsular_F)
-colnames(data_transpose_2) <- rownames(e_file_en_peninsular_F)
-rownames(data_transpose_2) <- colnames(e_file_en_peninsular_F)
+plot_pca_pca_e_pen_f_en <- fviz_pca_ind(pca_e_pen_f_en, 
+                                        col.ind = "cos2", 
+                                        gradient.cols = colors, 
+                                        repel = TRUE,
+                                        title = 'Individuals PCA - A2A Tokens')
 
+plot_pca_pca_e_pen_m_og <- fviz_pca_ind(pca_e_pen_m_og, 
+                                        col.ind = "cos2", 
+                                        gradient.cols = colors, 
+                                        repel = TRUE,
+                                        title = 'Individuals PCA - OG Tokens')
 
-pca_og <- prcomp(data_transpose_1, scale = TRUE)
-pca_en <- prcomp(data_transpose_2, scale = TRUE)
+plot_pca_pca_e_pen_m_en <- fviz_pca_ind(pca_e_pen_m_en, 
+                                        col.ind = "cos2", 
+                                        gradient.cols = colors, 
+                                        repel = TRUE,
+                                        title = 'Individuals PCA - A2A Tokens')
 
+grid.arrange(plot_pca_pca_e_pen_f_og, 
+             plot_pca_pca_e_pen_f_en,
+             plot_pca_pca_e_pen_m_og,
+             plot_pca_pca_e_pen_m_en,
+             ncol = 2)
+dev.off()
 
-plot_pca_og <- fviz_pca_ind(pca_og, 
-                            col.ind = "cos2", 
-                            gradient.cols = colors, 
-                            repel = TRUE,
-                            title = 'Individuals PCA - Original Tokens')
+#<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><
+plot_pca_pca_e_per_f_og <- fviz_pca_ind(pca_e_per_f_og, 
+                                        col.ind = "cos2", 
+                                        gradient.cols = colors, 
+                                        repel = TRUE,
+                                        title = 'Individuals PCA - OG Tokens')
 
-plot_pca_en <- fviz_pca_ind(pca_en, 
-                            col.ind = "cos2", 
-                            gradient.cols = colors, 
-                            repel = TRUE,
-                            title = 'Individuals PCA - A2A Tokens')
-grid.arrange(plot_pca_og, plot_pca_en, ncol = 2)
+plot_pca_pca_e_per_f_en <- fviz_pca_ind(pca_e_per_f_en, 
+                                        col.ind = "cos2", 
+                                        gradient.cols = colors, 
+                                        repel = TRUE,
+                                        title = 'Individuals PCA - A2A Tokens')
+
+plot_pca_pca_e_per_m_og <- fviz_pca_ind(pca_e_per_m_og, 
+                                        col.ind = "cos2", 
+                                        gradient.cols = colors, 
+                                        repel = TRUE,
+                                        title = 'Individuals PCA - OG Tokens')
+
+plot_pca_pca_e_per_m_en <- fviz_pca_ind(pca_e_per_m_en, 
+                                        col.ind = "cos2", 
+                                        gradient.cols = colors, 
+                                        repel = TRUE,
+                                        title = 'Individuals PCA - A2A Tokens')
+
+grid.arrange(plot_pca_pca_e_per_f_og, 
+             plot_pca_pca_e_per_f_en,
+             plot_pca_pca_e_per_m_og,
+             plot_pca_pca_e_per_m_en,
+             ncol = 2)
 dev.off()
 
 
-procrustes <- protest(pca_og, pca_en)
-print(procrustes)
-plot(procrustes)
+#<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><
+procrustese_e_pen_f <- protest(pca_e_pen_f_og, pca_e_pen_f_en)
+print(procrustese_e_pen_f)
+plot(procrustese_e_pen_f)
 text(
-  procrustes,
+  procrustese_e_pen_f,
   display = 'target',
   col = 'black',
   pos = 4,
   cex = 0.8
 )
 
-# The samples, when divided by condition, are concordant. That is, they are significantly
-# similar when analysing their principal components.
+procrustese_e_pen_m <- protest(pca_e_pen_m_og, pca_e_pen_m_en)
+print(procrustese_e_pen_m)
+plot(procrustese_e_pen_m)
+text(
+  procrustese_e_pen_m,
+  display = 'target',
+  col = 'black',
+  pos = 4,
+  cex = 0.8
+)
+
+procrustese_e_per_f <- protest(pca_e_per_f_og, pca_e_per_f_en)
+print(procrustese_e_per_f)
+plot(procrustese_e_per_f)
+text(
+  procrustese_e_per_f,
+  display = 'target',
+  col = 'black',
+  pos = 4,
+  cex = 0.8
+)
+
+procrustese_e_per_m <- protest(pca_e_per_m_og, pca_e_per_m_en)
+print(procrustese_e_per_m)
+plot(procrustese_e_per_m)
+text(
+  procrustese_e_per_m,
+  display = 'target',
+  col = 'black',
+  pos = 4,
+  cex = 0.8
+)
+
 
 #=============================== DATA PREP MODELS ===============================
 linear_model_data <- read.csv('/Users/inigoparra/Desktop/linear_model_data.csv')
@@ -133,13 +251,16 @@ en_lm_data <- linear_model_data %>% filter(linear_model_data$condition == 'en')
 
 
 #=============================== DATA ASSUMPTIONS ===============================
-hist(linear_model_data$z_scores_v)
-hist(linear_model_data$z_scores_dur)
+descdist(linear_model_data$z_scores_v, discrete = FALSE)
+descdist(linear_model_data$z_scores_dur, discrete = FALSE)
 
-shapiro.test(linear_model_data$z_scores_v)
-shapiro.test(linear_model_data$z_scores_dur)
+gaussian_v <- fitdist(linear_model_data$z_scores_v, "norm")
+gaussian_dur <- fitdist(linear_model_data$z_scores_dur, "norm")
 
+plot(gaussian_v)
+plot(gaussian_dur)
 
+shapiro.test(gaussian_dur$data)
 
 
 #=============================== MODELS ===============================
@@ -156,26 +277,26 @@ aov_model_dur_en <- aov(z_scores_dur ~ country + gender, data = en_lm_data)
 summary(aov_model_dur_en)
 
 #Diagnostics
-resout <- simulateResiduals(aov_model_v_og)
-plot(resout)
+results <- simulateResiduals(aov_model_v_og)
+plot(results)
 
 
 #<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><
-lm_model_v_og <- lm(z_scores_v ~ country + gender, data = og_lm_data)
-summary(lm_model_v_og)
+glm_model_v_og <- glm(z_scores_v ~ country + gender, data = og_lm_data)
+summary(glm_model_v_og)
 
-lm_model_v_en <- lm(z_scores_v ~ country + gender, data = en_lm_data)
-summary(lm_model_v_en)
+glm_model_v_en <- glm(z_scores_v ~ country + gender, data = en_lm_data)
+summary(glm_model_v_en)
 
-lm_model_dur_og <- lm(z_scores_dur ~ country + gender, data = og_lm_data)
-summary(lm_model_dur_og)
+glm_model_dur_og <- glm(z_scores_dur ~ country + gender, data = og_lm_data)
+summary(glm_model_dur_og)
 
-lm_model_dur_en <- lm(z_scores_dur ~ country + gender, data = en_lm_data)
-summary(lm_model_dur_en)
+glm_model_dur_en <- glm(z_scores_dur ~ country + gender, data = en_lm_data)
+summary(glm_model_dur_en)
 
 #Diagnostics
-resout <- simulateResiduals(lm_model_v_og)
-plot(resout)
+result <- simulateResiduals(glm_model_dur_en)
+plot(result)
 
 
 #<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><
@@ -193,24 +314,6 @@ summary(rlm_model_dur_en)
 
 #Diagnostics
 plot(rlm_model_v_og)
-
-
-#<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><
-lme_model_v_og <- lmer(z_scores_v ~ country + gender + (1 | id), data = og_lm_data)
-summary(lme_model_v_og)
-
-lme_model_v_en <- lmer(z_scores_v ~ country + gender + (1 | id), data = en_lm_data)
-summary(lme_model_v_en)
-
-lme_model_dur_og <- lmer(z_scores_dur ~ country + gender + (1 | id), data = og_lm_data)
-summary(lme_model_dur_og)
-
-lme_model_dur_en <- lmer(z_scores_dur ~ country + gender + (1 | id), data = en_lm_data)
-summary(lme_model_dur_en)
-
-#Diagnostics
-resout <- simulateResiduals(lme_model_v_og)
-plot(resout)
 
 
 #<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><
