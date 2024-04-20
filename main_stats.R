@@ -132,6 +132,16 @@ og_lm_data <- linear_model_data %>% filter(linear_model_data$condition == 'og')
 en_lm_data <- linear_model_data %>% filter(linear_model_data$condition == 'en')
 
 
+#=============================== DATA ASSUMPTIONS ===============================
+hist(linear_model_data$z_scores_v)
+hist(linear_model_data$z_scores_dur)
+
+shapiro.test(linear_model_data$z_scores_v)
+shapiro.test(linear_model_data$z_scores_dur)
+
+
+
+
 #=============================== MODELS ===============================
 aov_model_v_og <- aov(z_scores_v ~ country + gender, data = og_lm_data)
 summary(aov_model_v_og)
