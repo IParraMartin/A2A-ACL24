@@ -13,6 +13,7 @@ library(lmerTest)
 library(robustlmm)
 library(praatpicture)
 library(DHARMa)
+library(MASS)
 
 
 #=============================== DATA ===============================
@@ -112,7 +113,7 @@ text(
 # The samples, when divided by condition, are concordant. That is, they are significantly
 # similar when analysing their principal components.
 
-#=============================== MODELS ===============================
+#=============================== DATA PREP MODELS ===============================
 linear_model_data <- read.csv('/Users/inigoparra/Desktop/linear_model_data.csv')
 linear_model_data
 
@@ -130,6 +131,58 @@ sd(linear_model_data$v_percentage)
 og_lm_data <- linear_model_data %>% filter(linear_model_data$condition == 'og')
 en_lm_data <- linear_model_data %>% filter(linear_model_data$condition == 'en')
 
+#=============================== MODELS ===============================
+aov_model_v_og <- aov(z_scores_v ~ country + gender, data = og_lm_data)
+summary(aov_model_v_og)
+
+aov_model_v_en <- aov(z_scores_v ~ country + gender, data = en_lm_data)
+summary(aov_model_v_en)
+
+aov_model_dur_og <- aov(z_scores_dur ~ country + gender, data = og_lm_data)
+summary(aov_model_dur_og)
+
+aov_model_dur_en <- aov(z_scores_dur ~ country + gender, data = en_lm_data)
+summary(aov_model_dur_en)
+
+#Diagnostics
+resout <- simulateResiduals(aov_model_v_og)
+plot(resout)
+
+
+#<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><
+lm_model_v_og <- lm(z_scores_v ~ country + gender, data = og_lm_data)
+summary(lm_model_v_og)
+
+lm_model_v_en <- lm(z_scores_v ~ country + gender, data = en_lm_data)
+summary(lm_model_v_en)
+
+lm_model_dur_og <- lm(z_scores_dur ~ country + gender, data = og_lm_data)
+summary(lm_model_dur_og)
+
+lm_model_dur_en <- lm(z_scores_dur ~ country + gender, data = en_lm_data)
+summary(lm_model_dur_en)
+
+#Diagnostics
+resout <- simulateResiduals(lm_model_v_og)
+plot(resout)
+
+
+#<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><
+rlm_model_v_og <- rlm(z_scores_v ~ country + gender, data = og_lm_data)
+summary(rlm_model_v_og)
+
+rlm_model_v_en <- rlm(z_scores_v ~ country + gender, data = en_lm_data)
+summary(rlm_model_v_en)
+
+rlm_model_dur_og <- rlm(z_scores_dur ~ country + gender, data = og_lm_data)
+summary(rlm_model_dur_og)
+
+rlm_model_dur_en <- rlm(z_scores_dur ~ country + gender, data = en_lm_data)
+summary(rlm_model_dur_en)
+
+#Diagnostics
+plot(rlm_model_v_og)
+
 
 #<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><
 lme_model_v_og <- lmer(z_scores_v ~ country + gender + (1 | id), data = og_lm_data)
@@ -145,7 +198,7 @@ lme_model_dur_en <- lmer(z_scores_dur ~ country + gender + (1 | id), data = en_l
 summary(lme_model_dur_en)
 
 #Diagnostics
-resout <- simulateResiduals(lme_model_dur_en)
+resout <- simulateResiduals(lme_model_v_og)
 plot(resout)
 
 
@@ -161,6 +214,9 @@ summary(rlme_model_dur_og)
 
 rlme_model_dur_en <- rlmer(z_scores_dur ~ country + gender + (1 | id), data = en_lm_data)
 summary(rlme_model_dur_en)
+
+#Diagnostics
+plot(rlme_model_v_og)
 
 
 #=============================== PRAATPIC ===============================
