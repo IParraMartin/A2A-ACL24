@@ -131,6 +131,7 @@ sd(linear_model_data$v_percentage)
 og_lm_data <- linear_model_data %>% filter(linear_model_data$condition == 'og')
 en_lm_data <- linear_model_data %>% filter(linear_model_data$condition == 'en')
 
+
 #=============================== MODELS ===============================
 aov_model_v_og <- aov(z_scores_v ~ country + gender, data = og_lm_data)
 summary(aov_model_v_og)
