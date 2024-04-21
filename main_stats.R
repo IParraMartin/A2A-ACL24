@@ -419,11 +419,17 @@ descdist(linear_model_data$z_scores_dur, discrete = FALSE)
 
 gaussian_v <- fitdist(linear_model_data$z_scores_v, "norm")
 gaussian_dur <- fitdist(linear_model_data$z_scores_dur, "norm")
-
 plot(gaussian_v)
 plot(gaussian_dur)
 
 shapiro.test(gaussian_dur$data)
+
+
+bartlett.test(z_scores_v ~ interaction(country, gender, condition), 
+              data = linear_model_data)
+
+bartlett.test(z_scores_dur ~ interaction(country, gender, condition), 
+              data = linear_model_data)
 
 
 #=============================== MODELS ===============================
@@ -497,10 +503,10 @@ plot(rlme_model_v_og)
 
 
 #<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><
-cond_model_v <- glm(z_scores_v ~ country + gender + condition, data = linear_model_data)
+cond_model_v <- glm(z_scores_v ~ country * gender + condition, data = linear_model_data)
 summary(cond_model_v)
 
-cond_model_dur <- glm(z_scores_dur ~ country + gender + condition, data = linear_model_data)
+cond_model_dur <- glm(z_scores_dur ~ country * gender + condition, data = linear_model_data)
 summary(cond_model_dur)
 
 result <- simulateResiduals(cond_model_dur)
