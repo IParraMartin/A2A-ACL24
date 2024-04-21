@@ -15,6 +15,7 @@ library(praatpicture)
 library(DHARMa)
 library(MASS)
 library(faux)
+library(broom)
 
 #=============================== DATA ===============================
 e_file_en_peninsular_F <- read.csv('/Users/inigoparra/Desktop/sociophonetics/csv_files/ENH/e_file_en_peninsular_F.csv')
@@ -453,15 +454,19 @@ plot(results)
 #<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><
 glm_model_v_og <- glm(z_scores_v ~ country + gender, data = og_lm_data)
 summary(glm_model_v_og)
+tidy(glm_model_v_og)
 
 glm_model_v_en <- glm(z_scores_v ~ country + gender, data = en_lm_data)
 summary(glm_model_v_en)
+tidy(glm_model_v_en)
 
 glm_model_dur_og <- glm(z_scores_dur ~ country + gender, data = og_lm_data)
 summary(glm_model_dur_og)
+tidy(glm_model_dur_og)
 
 glm_model_dur_en <- glm(z_scores_dur ~ country + gender, data = en_lm_data)
 summary(glm_model_dur_en)
+tidy(glm_model_dur_en)
 
 #Diagnostics
 result <- simulateResiduals(glm_model_dur_en)
@@ -488,15 +493,19 @@ plot(rlm_model_v_og)
 #<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><
 rlme_model_v_og <- rlmer(z_scores_v ~ country + gender + (1 | id), data = og_lm_data)
 summary(rlme_model_v_og)
+tidy(rlme_model_v_og)
 
 rlme_model_v_en <- rlmer(z_scores_v ~ country + gender + (1 | id), data = en_lm_data)
 summary(rlme_model_v_en)
+tidy(rlme_model_v_en)
 
 rlme_model_dur_og <- rlmer(z_scores_dur ~ country + gender + (1 | id), data = og_lm_data)
 summary(rlme_model_dur_og)
+tidy(rlme_model_dur_og)
 
 rlme_model_dur_en <- rlmer(z_scores_dur ~ country + gender + (1 | id), data = en_lm_data)
 summary(rlme_model_dur_en)
+tidy(rlme_model_dur_en)
 
 #Diagnostics
 plot(rlme_model_v_og)
@@ -505,9 +514,11 @@ plot(rlme_model_v_og)
 #<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><
 cond_model_v <- glm(z_scores_v ~ country * gender + condition, data = linear_model_data)
 summary(cond_model_v)
+tidy(cond_model_v)
 
 cond_model_dur <- glm(z_scores_dur ~ country * gender + condition, data = linear_model_data)
 summary(cond_model_dur)
+tidy(cond_model_dur)
 
 result <- simulateResiduals(cond_model_dur)
 plot(result)
