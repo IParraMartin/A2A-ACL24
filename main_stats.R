@@ -434,21 +434,21 @@ bartlett.test(z_scores_dur ~ interaction(country, gender, condition),
 
 
 #=============================== MODELS ===============================
-aov_model_v_og <- aov(z_scores_v ~ country + gender, data = og_lm_data)
-summary(aov_model_v_og)
-
-aov_model_v_en <- aov(z_scores_v ~ country + gender, data = en_lm_data)
-summary(aov_model_v_en)
-
-aov_model_dur_og <- aov(z_scores_dur ~ country + gender, data = og_lm_data)
-summary(aov_model_dur_og)
-
-aov_model_dur_en <- aov(z_scores_dur ~ country + gender, data = en_lm_data)
-summary(aov_model_dur_en)
-
-#Diagnostics
-results <- simulateResiduals(aov_model_v_og)
-plot(results)
+# aov_model_v_og <- aov(z_scores_v ~ country + gender, data = og_lm_data)
+# summary(aov_model_v_og)
+# 
+# aov_model_v_en <- aov(z_scores_v ~ country + gender, data = en_lm_data)
+# summary(aov_model_v_en)
+# 
+# aov_model_dur_og <- aov(z_scores_dur ~ country + gender, data = og_lm_data)
+# summary(aov_model_dur_og)
+# 
+# aov_model_dur_en <- aov(z_scores_dur ~ country + gender, data = en_lm_data)
+# summary(aov_model_dur_en)
+# 
+# #Diagnostics
+# results <- simulateResiduals(aov_model_v_og)
+# plot(results)
 
 
 #<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><
@@ -474,41 +474,37 @@ plot(result)
 
 
 #<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><
-rlm_model_v_og <- rlm(z_scores_v ~ country + gender, data = og_lm_data)
-summary(rlm_model_v_og)
-
-rlm_model_v_en <- rlm(z_scores_v ~ country + gender, data = en_lm_data)
-summary(rlm_model_v_en)
-
-rlm_model_dur_og <- rlm(z_scores_dur ~ country + gender, data = og_lm_data)
-summary(rlm_model_dur_og)
-
-rlm_model_dur_en <- rlm(z_scores_dur ~ country + gender, data = en_lm_data)
-summary(rlm_model_dur_en)
-
-#Diagnostics
-plot(rlm_model_v_og)
+# rlm_model_v_og <- rlm(z_scores_v ~ country + gender, data = og_lm_data)
+# summary(rlm_model_v_og)
+# 
+# rlm_model_v_en <- rlm(z_scores_v ~ country + gender, data = en_lm_data)
+# summary(rlm_model_v_en)
+# 
+# rlm_model_dur_og <- rlm(z_scores_dur ~ country + gender, data = og_lm_data)
+# summary(rlm_model_dur_og)
+# 
+# rlm_model_dur_en <- rlm(z_scores_dur ~ country + gender, data = en_lm_data)
+# summary(rlm_model_dur_en)
+# 
+# #Diagnostics
+# plot(rlm_model_v_og)
 
 
 #<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><
-rlme_model_v_og <- rlmer(z_scores_v ~ country + gender + (1 | id), data = og_lm_data)
-summary(rlme_model_v_og)
-tidy(rlme_model_v_og)
-
-rlme_model_v_en <- rlmer(z_scores_v ~ country + gender + (1 | id), data = en_lm_data)
-summary(rlme_model_v_en)
-tidy(rlme_model_v_en)
-
-rlme_model_dur_og <- rlmer(z_scores_dur ~ country + gender + (1 | id), data = og_lm_data)
-summary(rlme_model_dur_og)
-tidy(rlme_model_dur_og)
-
-rlme_model_dur_en <- rlmer(z_scores_dur ~ country + gender + (1 | id), data = en_lm_data)
-summary(rlme_model_dur_en)
-tidy(rlme_model_dur_en)
-
-#Diagnostics
-plot(rlme_model_v_og)
+# rlme_model_v_og <- rlmer(z_scores_v ~ country + gender + (1 | id), data = og_lm_data)
+# summary(rlme_model_v_og)
+# 
+# rlme_model_v_en <- rlmer(z_scores_v ~ country + gender + (1 | id), data = en_lm_data)
+# summary(rlme_model_v_en)
+# 
+# rlme_model_dur_og <- rlmer(z_scores_dur ~ country + gender + (1 | id), data = og_lm_data)
+# summary(rlme_model_dur_og)
+# 
+# rlme_model_dur_en <- rlmer(z_scores_dur ~ country + gender + (1 | id), data = en_lm_data)
+# summary(rlme_model_dur_en)
+# 
+# #Diagnostics
+# plot(rlme_model_v_og)
 
 
 #<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><
