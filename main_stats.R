@@ -223,52 +223,56 @@ dev.off()
 
 
 #<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><
+par(mfrow = c(2, 2))
 procrustese_e_pen_f <- protest(pca_e_pen_f_og, pca_e_pen_f_en)
 print(procrustese_e_pen_f)
-plot(procrustese_e_pen_f)
+plot(procrustese_e_pen_f, 
+     main = 'Peninsular Female (e)')
 text(
   procrustese_e_pen_f,
   display = 'target',
   col = 'black',
   pos = 4,
-  cex = 0.8
+  cex = 1
 )
 
 procrustese_e_pen_m <- protest(pca_e_pen_m_og, pca_e_pen_m_en)
 print(procrustese_e_pen_m)
-plot(procrustese_e_pen_m)
+plot(procrustese_e_pen_m, 
+     main = 'Peninsular Male (e)')
 text(
   procrustese_e_pen_m,
   display = 'target',
   col = 'black',
   pos = 4,
-  cex = 0.8
+  cex = 1
 )
 
 
-#<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><
 procrustese_e_per_f <- protest(pca_e_per_f_og, pca_e_per_f_en)
 print(procrustese_e_per_f)
-plot(procrustese_e_per_f)
+plot(procrustese_e_per_f,
+     main = 'Peruvian Female (e)')
 text(
   procrustese_e_per_f,
   display = 'target',
   col = 'black',
   pos = 4,
-  cex = 0.8
+  cex = 1
 )
 
 procrustese_e_per_m <- protest(pca_e_per_m_og, pca_e_per_m_en)
 print(procrustese_e_per_m)
-plot(procrustese_e_per_m)
+plot(procrustese_e_per_m, 
+     main = 'Peruvian Male (e)')
 text(
   procrustese_e_per_m,
   display = 'target',
   col = 'black',
   pos = 4,
-  cex = 0.8
+  cex = 1
 )
-
+par(mfrow = c(1, 1))
 
 #=============================== PCA ANALYSIS FOR (I) ===============================
 pca_i_pen_f_og <- prcomp(data_transpose_i_pen_f_og, scale = TRUE)
@@ -351,52 +355,55 @@ dev.off()
 
 
 #<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><
+par(mfrow = c(2, 2))
 procrustese_i_pen_f <- protest(pca_i_pen_f_og, pca_i_pen_f_en)
 print(procrustese_i_pen_f)
-plot(procrustese_i_pen_f)
+plot(procrustese_i_pen_f, 
+     main = 'Peninsular Female (i)')
 text(
   procrustese_i_pen_f,
   display = 'target',
   col = 'black',
   pos = 4,
-  cex = 0.8
+  cex = 1
 )
 
 procrustese_i_pen_m <- protest(pca_i_pen_m_og, pca_i_pen_m_en)
 print(procrustese_i_pen_m)
-plot(procrustese_i_pen_m)
+plot(procrustese_i_pen_m, 
+     main = 'Peninsular Male (i)')
 text(
   procrustese_i_pen_m,
   display = 'target',
   col = 'black',
   pos = 4,
-  cex = 0.8
+  cex = 1
 )
 
-
-#<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><
 procrustese_i_per_f <- protest(pca_i_per_f_og, pca_i_per_f_en)
 print(procrustese_i_per_f)
-plot(procrustese_i_per_f)
+plot(procrustese_i_per_f, 
+     main = 'Peruvian Female (i)')
 text(
   procrustese_i_per_f,
   display = 'target',
   col = 'black',
   pos = 4,
-  cex = 0.8
+  cex = 1
 )
 
 procrustese_i_per_m <- protest(pca_i_per_m_og, pca_i_per_m_en)
 print(procrustese_i_per_m)
-plot(procrustese_i_per_m)
+plot(procrustese_i_per_m, 
+     main = 'Peruvian Male (i)')
 text(
   procrustese_i_per_m,
   display = 'target',
   col = 'black',
   pos = 4,
-  cex = 0.8
+  cex = 1
 )
-
+par(mfrow = c(1, 1))
 
 #=============================== DATA PREP MODELS ===============================
 linear_model_data <- read.csv('/Users/inigoparra/Desktop/linear_model_data.csv')
