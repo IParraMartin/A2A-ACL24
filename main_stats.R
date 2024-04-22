@@ -224,6 +224,7 @@ dev.off()
 
 #<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><
 par(mfrow = c(2, 2))
+
 procrustese_e_pen_f <- protest(pca_e_pen_f_og, pca_e_pen_f_en)
 print(procrustese_e_pen_f)
 plot(procrustese_e_pen_f, 
