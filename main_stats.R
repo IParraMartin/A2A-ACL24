@@ -4,6 +4,9 @@ library(ggplot2)
 library(tidyr)
 library(dplyr)
 library(lsa)
+library(lsr)
+library(pwr)
+library(rsq)
 library(factoextra)
 library(data.table)
 library(vegan)
@@ -452,26 +455,27 @@ bartlett.test(z_scores_dur ~ interaction(country, gender, condition),
 
 
 #<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><
-glm_model_v_og <- glm(z_scores_v ~ country + gender, data = og_lm_data)
-summary(glm_model_v_og)
-tidy(glm_model_v_og)
-
-glm_model_v_en <- glm(z_scores_v ~ country + gender, data = en_lm_data)
-summary(glm_model_v_en)
-tidy(glm_model_v_en)
-
-glm_model_dur_og <- glm(z_scores_dur ~ country + gender, data = og_lm_data)
-summary(glm_model_dur_og)
-tidy(glm_model_dur_og)
-
-glm_model_dur_en <- glm(z_scores_dur ~ country + gender, data = en_lm_data)
-summary(glm_model_dur_en)
-tidy(glm_model_dur_en)
-
-#Diagnostics
-result <- simulateResiduals(glm_model_dur_en)
-plot(result)
-
+# glm_model_v_og <- glm(z_scores_v ~ country + gender, data = og_lm_data)
+# summary(glm_model_v_og)
+# 
+# glm_model_v_en <- glm(z_scores_v ~ country + gender, data = en_lm_data)
+# summary(glm_model_v_en)
+# 
+# glm_model_dur_og <- glm(z_scores_dur ~ country + gender, data = og_lm_data)
+# summary(glm_model_dur_og)
+# 
+# glm_model_dur_en <- glm(z_scores_dur ~ country + gender, data = en_lm_data)
+# summary(glm_model_dur_en)
+# 
+# #Diagnostics
+# result <- simulateResiduals(glm_model_dur_en)
+# plot(result)
+# 
+# #Pseudo-R2 because we are testing a GLM and it may include some violations not assumed by R2 or Cohen
+# rsq(glm_model_v_og) 
+# rsq(glm_model_v_en)
+# rsq(glm_model_dur_og)
+# rsq(glm_model_dur_en)
 
 #<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><
 # rlm_model_v_og <- rlm(z_scores_v ~ country + gender, data = og_lm_data)
@@ -508,30 +512,34 @@ plot(result)
 
 
 #<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><
-cond_model_v <- glm(z_scores_v ~ country * gender + condition, data = linear_model_data)
-summary(cond_model_v)
-tidy(cond_model_v)
+# cond_model_v <- glm(z_scores_v ~ country * gender + condition, data = linear_model_data)
+# summary(cond_model_v)
+# tidy(cond_model_v)
+# 
+# cond_model_dur <- glm(z_scores_dur ~ country * gender + condition, data = linear_model_data)
+# summary(cond_model_dur)
+# tidy(cond_model_dur)
+# 
+# result <- simulateResiduals(cond_model_dur)
+# plot(result)
+# 
+# rsq(cond_model_v) 
+# rsq(cond_model_dur)
 
-cond_model_dur <- glm(z_scores_dur ~ country * gender + condition, data = linear_model_data)
-summary(cond_model_dur)
-tidy(cond_model_dur)
-
-result <- simulateResiduals(cond_model_dur)
-plot(result)
 
 
 #=============================== PRAATPIC ===============================
-praatpicture(
-  sound = '/Users/inigoparra/Desktop/sociophonetics/es_peninsular_female/e/bre.wav',
-  frames = c('sound', 'spectrogram'),
-  proportion = c(50, 50),
-  pitch_plotOnSpec = TRUE,
-  pitch_color = 'blue',
-  draw_rectangle = c('spectrogram', 0.0255, 4800, 0.055, 100, border='blue', lwd=2)
-  )
-
-praatpicture(
-  sound = '/Users/inigoparra/Desktop/sociophonetics/es_peninsular_female/e_enhanced/bre.wav',
-  frames = c('sound', 'spectrogram'),
-  proportion = c(50, 50)
-)
+# praatpicture(
+#   sound = '/Users/inigoparra/Desktop/sociophonetics/es_peninsular_female/e/bre.wav',
+#   frames = c('sound', 'spectrogram'),
+#   proportion = c(50, 50),
+#   pitch_plotOnSpec = TRUE,
+#   pitch_color = 'blue',
+#   draw_rectangle = c('spectrogram', 0.0255, 4800, 0.055, 100, border='blue', lwd=2)
+#   )
+# 
+# praatpicture(
+#   sound = '/Users/inigoparra/Desktop/sociophonetics/es_peninsular_female/e_enhanced/bre.wav',
+#   frames = c('sound', 'spectrogram'),
+#   proportion = c(50, 50)
+# )
